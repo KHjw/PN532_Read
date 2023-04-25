@@ -22,9 +22,9 @@ void setup(void) {
     while (1); // halt
   }
   
-  Serial.println("Found chip PN5");           // Got ok data, print it out!
+  Serial.println("Found PN532");              // Got ok data, print it out!
   nfc.SAMConfig();                            // configure board to read RFID tags
-  Serial.println("Waiting for an ISO14443A Card ...");
+  Serial.println("Waiting for Card ...");
 }
 
 void loop(void) {
@@ -45,7 +45,12 @@ void loop(void) {
 
       if (success) 
       {
-        nfc.PrintHexChar(data, 4);
+        String RfidID = "";
+
+        for(int i=0; i<4; i++){
+          RfidID += (char)data[i];
+        }
+        Serial.println(RfidID);
       }
     }
     else
